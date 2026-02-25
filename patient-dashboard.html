@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Dashboard – MediBook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-[#e8f2fc]">
+  <header class="bg-white shadow-md sticky top-0 z-40 border-b border-slate-100">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <a href="index.html" class="text-xl font-bold text-[#1977cc]">MediBook</a>
+      <div class="flex items-center gap-4">
+        <a href="patient-dashboard.html" id="tabDoctors" class="px-3 py-2 rounded-lg font-medium bg-[#1977cc] text-white">Doctors</a>
+        <a href="patient-dashboard.html#my-appointments" id="tabMyAppointments" class="px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-slate-100 transition-colors">My Appointments</a>
+        <span class="text-slate-600 text-sm" id="userName"></span>
+        <a href="index.html" onclick="clearSession()" class="text-red-600 hover:underline text-sm">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    <div class="flex flex-wrap gap-4 mb-6 items-end">
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Date</label>
+        <input type="date" id="dashboardDate" class="px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#1977cc]">
+      </div>
+      <div id="searchWrap">
+        <label class="block text-sm font-medium text-slate-700 mb-1">Search by specialist or name</label>
+        <input type="text" id="searchDoctor" placeholder="e.g. Cardiologist" class="px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#1977cc] w-64">
+      </div>
+      <button type="button" id="loadDoctors" class="px-4 py-2 bg-[#1977cc] text-white rounded-lg hover:opacity-90 transition">Search</button>
+    </div>
+
+    <section id="doctorsSection" class="section-tab">
+      <h2 class="text-lg font-semibold text-slate-800 mb-4">Available Doctors</h2>
+      <div id="doctorCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="doctorPagination" class="mt-4 flex justify-center items-center gap-4 flex-wrap"></div>
+    </section>
+
+    <section id="myAppointmentsSection" class="section-tab hidden">
+      <h2 class="text-lg font-semibold text-slate-800 mb-4">My Appointments</h2>
+      <div id="myAppointmentsList" class="space-y-3"></div>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/patient.js"></script>
+  <script>
+    var user = requireAuth(['patient']);
+    if (!user) { /* redirect to login */ }
+    if (user) {
+      var nameEl = document.getElementById('userName');
+      if (nameEl) nameEl.textContent = user.name || 'Patient';
+    }
+    var dateEl = document.getElementById('dashboardDate');
+    if (dateEl) dateEl.value = getToday();
+
+    function showSection(section) {
+      document.querySelectorAll('.section-tab').forEach(function (el) { el.classList.add('hidden'); });
+      var el = document.getElementById(section === 'doctors' ? 'doctorsSection' : 'myAppointmentsSection');
+      if (el) el.classList.remove('hidden');
+      var tabDoctors = document.getElementById('tabDoctors');
+      var tabMyAppointments = document.getElementById('tabMyAppointments');
+      tabDoctors.classList.remove('bg-[#1977cc]', 'text-white', 'bg-slate-100');
+      tabMyAppointments.classList.remove('bg-[#1977cc]', 'text-white', 'bg-slate-100');
+      if (section === 'doctors') {
+        tabDoctors.classList.add('bg-[#1977cc]', 'text-white');
+        tabMyAppointments.classList.add('text-slate-600');
+      } else {
+        tabMyAppointments.classList.add('bg-[#1977cc]', 'text-white');
+        tabDoctors.classList.add('text-slate-600');
+      }
+      if (section === 'my-appointments' && user) loadMyAppointments('myAppointmentsList', user.id, 'dashboardDate');
+    }
+
+    function onLoad() {
+      var hash = window.location.hash;
+      if (hash === '#my-appointments') {
+        showSection('my-appointments');
+      } else {
+        showSection('doctors');
+        loadPatientDashboard('doctorCards', 'searchDoctor', 'dashboardDate');
+      }
+    }
+    onLoad();
+    window.addEventListener('hashchange', onLoad);
+
+    document.getElementById('loadDoctors').addEventListener('click', function () {
+      showSection('doctors');
+      loadPatientDashboard('doctorCards', 'searchDoctor', 'dashboardDate');
+    });
+    document.getElementById('dashboardDate').addEventListener('change', function () {
+      if (!document.getElementById('myAppointmentsSection').classList.contains('hidden'))
+        loadMyAppointments('myAppointmentsList', user && user.id, 'dashboardDate');
+      else
+        loadPatientDashboard('doctorCards', 'searchDoctor', 'dashboardDate');
+    });
+    document.getElementById('searchDoctor').addEventListener('input', function () {
+      loadPatientDashboard('doctorCards', 'searchDoctor', 'dashboardDate');
+    });
+    document.getElementById('tabDoctors').addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location.hash = '';
+      showSection('doctors');
+      loadPatientDashboard('doctorCards', 'searchDoctor', 'dashboardDate');
+    });
+    document.getElementById('tabMyAppointments').addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location.hash = 'my-appointments';
+      showSection('my-appointments');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "role": "doctor",
+      "name": "Dr. Amit Sharma",
+      "specialist": "Cardiologist",
+      "email": "doctor1@gmail.com",
+      "phone": "9876543210",
+      "password": "123456"
+    },
+    {
+      "id": "2",
+      "role": "patient",
+      "name": "Rahul Patel",
+      "email": "patient1@gmail.com",
+      "phone": "9999999999",
+      "password": "123456"
+    },
+    {
+      "id": "bbb3",
+      "role": "doctor",
+      "name": "Dr. Raam",
+      "email": "raam@gmail.com",
+      "phone": "1111111111",
+      "password": "Raam11@22",
+      "specialist": "Dentist"
+    },
+    {
+      "id": "e1a0",
+      "role": "patient",
+      "name": "Shyam",
+      "email": "shyam@gmail.com",
+      "phone": "2222222222",
+      "password": "Shyam11@22"
+    },
+    {
+      "id": "doc3",
+      "role": "doctor",
+      "name": "Dr. Priya Nair",
+      "email": "priya@gmail.com",
+      "phone": "3333333333",
+      "password": "Priya11@22",
+      "specialist": "Pediatrician"
+    },
+    {
+      "id": "p3",
+      "role": "patient",
+      "name": "Anita Singh",
+      "email": "anita@gmail.com",
+      "phone": "4444444444",
+      "password": "Anita11@22"
+    },
+    {
+      "id": "p4",
+      "role": "patient",
+      "name": "Vikram Rao",
+      "email": "vikram@gmail.com",
+      "phone": "5555555555",
+      "password": "Vikram11@22"
+    },
+    {
+      "id": "p5",
+      "role": "patient",
+      "name": "Kavita Desai",
+      "email": "kavita@gmail.com",
+      "phone": "6666666666",
+      "password": "Kavita11@22"
+    },
+    {
+      "id": "p6",
+      "role": "patient",
+      "name": "Rohit Kumar",
+      "email": "rohit@gmail.com",
+      "phone": "7777777777",
+      "password": "Rohit11@22"
+    },
+    {
+      "id": "test1",
+      "role": "patient",
+      "name": "Test User One",
+      "email": "test1@test.com",
+      "phone": "8888888801",
+      "password": "Test@123"
+    },
+    {
+      "id": "test2",
+      "role": "patient",
+      "name": "Test User Two",
+      "email": "test2@test.com",
+      "phone": "8888888802",
+      "password": "Test@123"
+    },
+    {
+      "id": "demo",
+      "role": "patient",
+      "name": "Demo Patient",
+      "email": "demo@medibook.com",
+      "phone": "8888888803",
+      "password": "Demo@123"
+    },
+    {
+      "id": "qa1",
+      "role": "patient",
+      "name": "QA Tester",
+      "email": "qa@test.com",
+      "phone": "8888888804",
+      "password": "Qa@123"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "1",
+      "userId": "1",
+      "specialist": "Cardiologist",
+      "slots": {
+        "morning": { "start": "09:00", "end": "12:00", "limit": 30, "enabled": true },
+        "afternoon": { "start": "13:00", "end": "16:00", "limit": 10, "enabled": true },
+        "evening": { "start": "17:00", "end": "20:00", "limit": 5, "enabled": false }
+      }
+    },
+    {
+      "id": "9b83",
+      "userId": "bbb3",
+      "specialist": "Dentist",
+      "slots": {
+        "morning": { "start": "09:00", "end": "12:00", "limit": 5, "enabled": true },
+        "afternoon": { "start": "13:00", "end": "16:00", "limit": 5, "enabled": true },
+        "evening": { "start": "17:00", "end": "20:00", "limit": 5, "enabled": true }
+      }
+    },
+    {
+      "id": "d3",
+      "userId": "doc3",
+      "specialist": "Pediatrician",
+      "slots": {
+        "morning": { "start": "09:00", "end": "12:00", "limit": 15, "enabled": true },
+        "afternoon": { "start": "13:00", "end": "16:00", "limit": 10, "enabled": false },
+        "evening": { "start": "17:00", "end": "20:00", "limit": 8, "enabled": true }
+      }
+    }
+  ],
+  "appointments": [
+    {
+      "id": "1",
+      "doctorId": "1",
+      "patientId": "2",
+      "patientName": "Rahul Patel",
+      "patientPhone": "9999999999",
+      "date": "2026-02-24",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "2",
+      "doctorId": "1",
+      "patientId": "e1a0",
+      "patientName": "Shyam",
+      "patientPhone": "2222222222",
+      "date": "2026-02-24",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "3",
+      "doctorId": "1",
+      "patientId": "p3",
+      "patientName": "Anita Singh",
+      "patientPhone": "4444444444",
+      "date": "2026-02-25",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "4",
+      "doctorId": "1",
+      "patientId": "p4",
+      "patientName": "Vikram Rao",
+      "patientPhone": "5555555555",
+      "date": "2026-02-25",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "completed"
+    },
+    {
+      "id": "5",
+      "doctorId": "9b83",
+      "patientId": "e1a0",
+      "patientName": "Shyam",
+      "patientPhone": "2222222222",
+      "date": "2026-02-24",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "completed"
+    },
+    {
+      "id": "6",
+      "doctorId": "9b83",
+      "patientId": "2",
+      "patientName": "Rahul Patel",
+      "patientPhone": "9999999999",
+      "date": "2026-02-25",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "7",
+      "doctorId": "9b83",
+      "patientId": "p5",
+      "patientName": "Kavita Desai",
+      "patientPhone": "6666666666",
+      "date": "2026-02-25",
+      "slot": "evening",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "8",
+      "doctorId": "9b83",
+      "patientId": "test1",
+      "patientName": "Test User One",
+      "patientPhone": "8888888801",
+      "date": "2026-02-26",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "9",
+      "doctorId": "d3",
+      "patientId": "p3",
+      "patientName": "Anita Singh",
+      "patientPhone": "4444444444",
+      "date": "2026-02-24",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "10",
+      "doctorId": "d3",
+      "patientId": "p6",
+      "patientName": "Rohit Kumar",
+      "patientPhone": "7777777777",
+      "date": "2026-02-25",
+      "slot": "evening",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "11",
+      "doctorId": "d3",
+      "patientId": "demo",
+      "patientName": "Demo Patient",
+      "patientPhone": "8888888803",
+      "date": "2026-02-26",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "12",
+      "doctorId": "d3",
+      "patientId": "qa1",
+      "patientName": "QA Tester",
+      "patientPhone": "8888888804",
+      "date": "2026-02-26",
+      "slot": "evening",
+      "tokenNumber": 1,
+      "status": "cancelled"
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard – MediBook</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-[#e8f2fc]">
+  <header class="bg-white shadow-md border-b border-slate-100">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-[#1977cc]" id="welcomeName">Welcome, Doctor</h1>
+      <a href="index.html" onclick="clearSession()" class="text-red-600 hover:underline text-sm">Logout</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    <div class="flex flex-wrap gap-4 mb-6 items-center">
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1">Date</label>
+        <input type="date" id="dashboardDate" class="px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-[#1977cc]">
+      </div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white rounded-xl shadow p-4 border-l-4 border-[#1977cc]">
+        <p class="text-slate-500 text-sm">Total today</p>
+        <p class="text-2xl font-bold text-slate-800" id="totalPatients">0</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4 border-l-4 border-amber-500">
+        <p class="text-slate-500 text-sm">Waiting</p>
+        <p class="text-2xl font-bold text-amber-700" id="waitingCount">0</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4 border-l-4 border-green-500">
+        <p class="text-slate-500 text-sm">Completed</p>
+        <p class="text-2xl font-bold text-green-700" id="completedCount">0</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4 border-l-4 border-slate-500">
+        <p class="text-slate-500 text-sm">Current token</p>
+        <p class="text-2xl font-bold text-slate-800" id="currentToken">–</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white rounded-xl shadow p-4">
+        <p class="text-slate-500 text-sm">Morning</p>
+        <p class="text-xl font-semibold text-slate-800" id="morningCount">0</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4">
+        <p class="text-slate-500 text-sm">Afternoon</p>
+        <p class="text-xl font-semibold text-slate-800" id="afternoonCount">0</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-4">
+        <p class="text-slate-500 text-sm">Evening</p>
+        <p class="text-xl font-semibold text-slate-800" id="eveningCount">0</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow overflow-hidden border border-slate-100 mb-6">
+      <h2 class="text-lg font-semibold text-slate-800 p-4 border-b border-slate-200">Today's patients</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-slate-50 text-left text-sm text-slate-600">
+            <tr>
+              <th class="py-3 px-4 font-medium">Token</th>
+              <th class="py-3 px-4 font-medium">Patient</th>
+              <th class="py-3 px-4 font-medium">Phone</th>
+              <th class="py-3 px-4 font-medium">Slot</th>
+              <th class="py-3 px-4 font-medium">Status</th>
+              <th class="py-3 px-4 font-medium">Action</th>
+            </tr>
+          </thead>
+          <tbody id="patientsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-6 mb-6 border border-slate-100">
+      <h2 class="text-lg font-semibold text-slate-800 mb-4">Update slot availability</h2>
+      <p class="text-sm text-slate-500 mb-4">Set limit per slot and enable/disable. Save to apply.</p>
+      <div id="slotSection"></div>
+    </div>
+
+    <div id="patientDetailModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 hidden" aria-hidden="true">
+      <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 border border-slate-200">
+        <h3 class="text-lg font-semibold text-slate-800 mb-4">Patient details</h3>
+        <div id="patientDetailContent" class="space-y-2 text-sm text-slate-600"></div>
+        <button type="button" id="closePatientModal" class="mt-4 w-full py-2 bg-slate-200 text-slate-800 rounded-lg hover:bg-slate-300 font-medium">Close</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/doctor.js"></script>
+  <script>
+    (function () {
+      var user = requireAuth(['doctor']);
+      if (!user) return;
+      var dateEl = document.getElementById('dashboardDate');
+      if (dateEl) dateEl.value = getToday();
+      var currentDoctorId = null;
+      function getSelectedDate() {
+        var el = document.getElementById('dashboardDate');
+        return (el && el.value) ? el.value : getToday();
+      }
+      function load() {
+        var welcomeEl = document.getElementById('welcomeName');
+        if (welcomeEl) welcomeEl.textContent = 'Welcome, ' + (user.name || 'Doctor');
+        var storedDoctorId = sessionStorage.getItem('appointment_doctorId');
+        if (storedDoctorId) {
+          sessionStorage.removeItem('appointment_doctorId');
+          currentDoctorId = storedDoctorId;
+          loadDoctorDashboard(storedDoctorId, getSelectedDate());
+          return;
+        }
+        api.getDoctors().then(function (doctors) {
+          var doc = getDoctorByUserId(doctors, user.id);
+          if (!doc) {
+            showToast('Doctor profile not found.', 'error');
+            return;
+          }
+          currentDoctorId = doc.id;
+          loadDoctorDashboard(doc.id, getSelectedDate());
+        }).catch(function (err) {
+          console.error('Load doctor profile error:', err);
+          showToast('Failed to load doctor profile. Is server running at http://localhost:3000?', 'error');
+        });
+      }
+      load();
+      dateEl.addEventListener('change', function () {
+        if (currentDoctorId) loadDoctorDashboard(currentDoctorId, getSelectedDate());
+      });
+      document.getElementById('closePatientModal').addEventListener('click', closePatientDetailModal);
+      document.getElementById('patientDetailModal').addEventListener('click', function (e) {
+        if (e.target === this) closePatientDetailModal();
+      });
+    })();
+  </script>
+</body>
+</html>
