@@ -100,15 +100,20 @@ function loadPatientDashboard(containerId, searchId, dateId, page) {
 function loadMyAppointments(containerId, patientId, dateId) {
   var container = document.getElementById(containerId);
   var dateEl = document.getElementById(dateId);
-  if (!container || !patientId) return;
+  if (!container || !patientId) {
+    if (container && !patientId) container.innerHTML = '<p class="text-slate-500 py-6 text-center">Please log in again.</p>';
+    return;
+  }
 
   var selectedDate = (dateEl && dateEl.value) || getToday();
   showLoading(container);
 
-  api.getAppointments({ patientId: String(patientId), date: selectedDate }).then(function (list) {
+  api.getAppointments({}).then(function (allList) {
     hideLoading(container);
-    if (!list || list.length === 0) {
-      container.innerHTML = '<p class="text-slate-500 py-6 text-center">No appointments for this date.</p>';
+    var forPatient = (allList || []).filter(function (a) { return String(a.patientId) === String(patientId); });
+    var list = forPatient.filter(function (a) { return a.date === selectedDate; });
+    if (list.length === 0) {
+      container.innerHTML = '<p class="text-slate-500 py-6 text-center">No appointments for this date. Try another date.</p>';
       return;
     }
     api.getDoctorsWithUser().then(function (doctors) {

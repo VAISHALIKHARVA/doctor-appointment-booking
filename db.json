@@ -76,6 +76,24 @@
       "password": "Rohit11@22"
     },
     {
+      "id": "doc4",
+      "role": "doctor",
+      "name": "Dr. Suresh Reddy",
+      "email": "suresh@gmail.com",
+      "phone": "4444444000",
+      "password": "Suresh11@22",
+      "specialist": "General Physician"
+    },
+    {
+      "id": "doc5",
+      "role": "doctor",
+      "name": "Dr. Meera Iyer",
+      "email": "meera@gmail.com",
+      "phone": "5555555000",
+      "password": "Meera11@22",
+      "specialist": "Dermatologist"
+    },
+    {
       "id": "test1",
       "role": "patient",
       "name": "Test User One",
@@ -114,9 +132,24 @@
       "userId": "1",
       "specialist": "Cardiologist",
       "slots": {
-        "morning": { "start": "09:00", "end": "12:00", "limit": 30, "enabled": true },
-        "afternoon": { "start": "13:00", "end": "16:00", "limit": 10, "enabled": true },
-        "evening": { "start": "17:00", "end": "20:00", "limit": 5, "enabled": false }
+        "morning": {
+          "start": "09:00",
+          "end": "12:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "afternoon": {
+          "start": "13:00",
+          "end": "16:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "evening": {
+          "start": "17:00",
+          "end": "20:00",
+          "limit": 10,
+          "enabled": true
+        }
       }
     },
     {
@@ -124,9 +157,24 @@
       "userId": "bbb3",
       "specialist": "Dentist",
       "slots": {
-        "morning": { "start": "09:00", "end": "12:00", "limit": 5, "enabled": true },
-        "afternoon": { "start": "13:00", "end": "16:00", "limit": 5, "enabled": true },
-        "evening": { "start": "17:00", "end": "20:00", "limit": 5, "enabled": true }
+        "morning": {
+          "start": "09:00",
+          "end": "12:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "afternoon": {
+          "start": "13:00",
+          "end": "16:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "evening": {
+          "start": "17:00",
+          "end": "20:00",
+          "limit": 10,
+          "enabled": true
+        }
       }
     },
     {
@@ -134,15 +182,80 @@
       "userId": "doc3",
       "specialist": "Pediatrician",
       "slots": {
-        "morning": { "start": "09:00", "end": "12:00", "limit": 15, "enabled": true },
-        "afternoon": { "start": "13:00", "end": "16:00", "limit": 10, "enabled": false },
-        "evening": { "start": "17:00", "end": "20:00", "limit": 8, "enabled": true }
+        "morning": {
+          "start": "09:00",
+          "end": "12:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "afternoon": {
+          "start": "13:00",
+          "end": "16:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "evening": {
+          "start": "17:00",
+          "end": "20:00",
+          "limit": 10,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "d4",
+      "userId": "doc4",
+      "specialist": "General Physician",
+      "slots": {
+        "morning": {
+          "start": "09:00",
+          "end": "12:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "afternoon": {
+          "start": "13:00",
+          "end": "16:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "evening": {
+          "start": "17:00",
+          "end": "20:00",
+          "limit": 10,
+          "enabled": true
+        }
+      }
+    },
+    {
+      "id": "d5",
+      "userId": "doc5",
+      "specialist": "Dermatologist",
+      "slots": {
+        "morning": {
+          "start": "09:00",
+          "end": "12:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "afternoon": {
+          "start": "13:00",
+          "end": "16:00",
+          "limit": 10,
+          "enabled": true
+        },
+        "evening": {
+          "start": "17:00",
+          "end": "20:00",
+          "limit": 10,
+          "enabled": true
+        }
       }
     }
   ],
   "appointments": [
     {
-      "id": "1",
+      "id": "a1",
       "doctorId": "1",
       "patientId": "2",
       "patientName": "Rahul Patel",
@@ -153,7 +266,7 @@
       "status": "waiting"
     },
     {
-      "id": "2",
+      "id": "a2",
       "doctorId": "1",
       "patientId": "e1a0",
       "patientName": "Shyam",
@@ -164,73 +277,95 @@
       "status": "waiting"
     },
     {
-      "id": "3",
+      "id": "a3",
       "doctorId": "1",
       "patientId": "p3",
       "patientName": "Anita Singh",
       "patientPhone": "4444444444",
-      "date": "2026-02-25",
-      "slot": "morning",
+      "date": "2026-02-24",
+      "slot": "evening",
       "tokenNumber": 1,
-      "status": "waiting"
+      "status": "completed"
     },
     {
-      "id": "4",
+      "id": "a4",
       "doctorId": "1",
       "patientId": "p4",
       "patientName": "Vikram Rao",
       "patientPhone": "5555555555",
       "date": "2026-02-25",
-      "slot": "afternoon",
+      "slot": "morning",
       "tokenNumber": 1,
-      "status": "completed"
+      "status": "waiting"
     },
     {
-      "id": "5",
+      "id": "a5",
+      "doctorId": "1",
+      "patientId": "p5",
+      "patientName": "Kavita Desai",
+      "patientPhone": "6666666666",
+      "date": "2026-02-25",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a6",
       "doctorId": "9b83",
       "patientId": "e1a0",
       "patientName": "Shyam",
       "patientPhone": "2222222222",
       "date": "2026-02-24",
-      "slot": "afternoon",
+      "slot": "morning",
       "tokenNumber": 1,
       "status": "completed"
     },
     {
-      "id": "6",
+      "id": "a7",
       "doctorId": "9b83",
       "patientId": "2",
       "patientName": "Rahul Patel",
       "patientPhone": "9999999999",
-      "date": "2026-02-25",
-      "slot": "morning",
+      "date": "2026-02-24",
+      "slot": "afternoon",
       "tokenNumber": 1,
       "status": "waiting"
     },
     {
-      "id": "7",
+      "id": "a8",
       "doctorId": "9b83",
       "patientId": "p5",
       "patientName": "Kavita Desai",
       "patientPhone": "6666666666",
-      "date": "2026-02-25",
+      "date": "2026-02-24",
       "slot": "evening",
       "tokenNumber": 1,
       "status": "waiting"
     },
     {
-      "id": "8",
+      "id": "a9",
       "doctorId": "9b83",
-      "patientId": "test1",
-      "patientName": "Test User One",
-      "patientPhone": "8888888801",
-      "date": "2026-02-26",
+      "patientId": "p6",
+      "patientName": "Rohit Kumar",
+      "patientPhone": "7777777777",
+      "date": "2026-02-25",
       "slot": "morning",
       "tokenNumber": 1,
       "status": "waiting"
     },
     {
-      "id": "9",
+      "id": "a10",
+      "doctorId": "9b83",
+      "patientId": "test1",
+      "patientName": "Test User One",
+      "patientPhone": "8888888801",
+      "date": "2026-02-25",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a11",
       "doctorId": "d3",
       "patientId": "p3",
       "patientName": "Anita Singh",
@@ -241,37 +376,180 @@
       "status": "waiting"
     },
     {
-      "id": "10",
+      "id": "a12",
       "doctorId": "d3",
       "patientId": "p6",
       "patientName": "Rohit Kumar",
       "patientPhone": "7777777777",
+      "date": "2026-02-24",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a13",
+      "doctorId": "d3",
+      "patientId": "demo",
+      "patientName": "Demo Patient",
+      "patientPhone": "8888888803",
+      "date": "2026-02-24",
+      "slot": "evening",
+      "tokenNumber": 1,
+      "status": "completed"
+    },
+    {
+      "id": "a14",
+      "doctorId": "d3",
+      "patientId": "qa1",
+      "patientName": "QA Tester",
+      "patientPhone": "8888888804",
+      "date": "2026-02-25",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a15",
+      "doctorId": "d3",
+      "patientId": "p4",
+      "patientName": "Vikram Rao",
+      "patientPhone": "5555555555",
       "date": "2026-02-25",
       "slot": "evening",
       "tokenNumber": 1,
       "status": "waiting"
     },
     {
-      "id": "11",
-      "doctorId": "d3",
-      "patientId": "demo",
-      "patientName": "Demo Patient",
-      "patientPhone": "8888888803",
-      "date": "2026-02-26",
+      "id": "a16",
+      "doctorId": "d4",
+      "patientId": "2",
+      "patientName": "Rahul Patel",
+      "patientPhone": "9999999999",
+      "date": "2026-02-24",
       "slot": "morning",
       "tokenNumber": 1,
       "status": "waiting"
     },
     {
-      "id": "12",
-      "doctorId": "d3",
+      "id": "a17",
+      "doctorId": "d4",
+      "patientId": "p6",
+      "patientName": "Rohit Kumar",
+      "patientPhone": "7777777777",
+      "date": "2026-02-24",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a18",
+      "doctorId": "d4",
+      "patientId": "test1",
+      "patientName": "Test User One",
+      "patientPhone": "8888888801",
+      "date": "2026-02-24",
+      "slot": "evening",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a19",
+      "doctorId": "d4",
+      "patientId": "test2",
+      "patientName": "Test User Two",
+      "patientPhone": "8888888802",
+      "date": "2026-02-25",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a20",
+      "doctorId": "d4",
+      "patientId": "demo",
+      "patientName": "Demo Patient",
+      "patientPhone": "8888888803",
+      "date": "2026-02-25",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a21",
+      "doctorId": "d5",
+      "patientId": "p4",
+      "patientName": "Vikram Rao",
+      "patientPhone": "5555555555",
+      "date": "2026-02-24",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a22",
+      "doctorId": "d5",
+      "patientId": "p5",
+      "patientName": "Kavita Desai",
+      "patientPhone": "6666666666",
+      "date": "2026-02-24",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a23",
+      "doctorId": "d5",
       "patientId": "qa1",
       "patientName": "QA Tester",
       "patientPhone": "8888888804",
-      "date": "2026-02-26",
+      "date": "2026-02-24",
       "slot": "evening",
       "tokenNumber": 1,
-      "status": "cancelled"
+      "status": "completed"
+    },
+    {
+      "id": "a24",
+      "doctorId": "d5",
+      "patientId": "e1a0",
+      "patientName": "Shyam",
+      "patientPhone": "2222222222",
+      "date": "2026-02-25",
+      "slot": "morning",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "a25",
+      "doctorId": "d5",
+      "patientId": "p3",
+      "patientName": "Anita Singh",
+      "patientPhone": "4444444444",
+      "date": "2026-02-25",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
+    },
+    {
+      "id": "45d4",
+      "doctorId": "d5",
+      "patientId": "2",
+      "patientName": "Rahul Patel",
+      "patientPhone": "9999999999",
+      "date": "2026-02-25",
+      "slot": "afternoon",
+      "tokenNumber": 2,
+      "status": "waiting"
+    },
+    {
+      "id": "aa4b",
+      "doctorId": "1",
+      "patientId": "2",
+      "patientName": "Rahul Patel",
+      "patientPhone": "9999999999",
+      "date": "2026-02-25",
+      "slot": "afternoon",
+      "tokenNumber": 1,
+      "status": "waiting"
     }
   ]
 }

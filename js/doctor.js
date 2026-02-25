@@ -86,7 +86,6 @@ function loadDoctorDashboard(doctorId, date) {
           '<td class="py-3 px-4">' + escapeHtml(a.slot) + '</td>' +
           '<td class="py-3 px-4"><span class="px-2 py-1 rounded text-xs font-medium ' + statusClass + '">' + escapeHtml(a.status) + '</span></td>' +
           '<td class="py-3 px-4 flex flex-wrap gap-2">' +
-          '<button type="button" class="view-patient px-3 py-1 bg-[#1977cc] text-white text-sm rounded hover:bg-[#1565a0]" data-appointment-json="' + escapeHtml(JSON.stringify({ patientName: a.patientName, patientPhone: a.patientPhone || '', slot: a.slot, tokenNumber: a.tokenNumber, status: a.status, date: a.date })) + '">View</button>' +
           (a.status === 'waiting'
             ? '<button type="button" class="mark-complete px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700" data-id="' + escapeHtml(String(a.id)) + '">Complete</button>'
             : '') +
@@ -100,16 +99,6 @@ function loadDoctorDashboard(doctorId, date) {
             showToast('Marked as completed.');
             loadDoctorDashboard(doctorId, d);
           }).catch(function () { showToast('Update failed.', 'error'); });
-        });
-      });
-      tableBody.querySelectorAll('.view-patient').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var raw = this.getAttribute('data-appointment-json');
-          if (!raw) return;
-          try {
-            var data = JSON.parse(raw);
-            showPatientDetailModal(data);
-          } catch (e) { console.error(e); }
         });
       });
     }
