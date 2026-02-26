@@ -5,168 +5,361 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MediBook – Doctor Appointment Booking</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="min-h-screen bg-[#e8f2fc]">
-  <!-- Nav: responsive -->
+<body class="min-h-screen bg-white text-slate-800">
+
+  <!-- Main nav -->
   <nav class="bg-white shadow-md sticky top-0 z-40 border-b border-slate-100">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2 sm:gap-4">
-      <a href="index.html" class="text-lg sm:text-xl font-bold text-[#1977cc]">MediBook</a>
-      <div class="flex items-center gap-2 sm:gap-4 flex-wrap">
-        <a href="login.html" class="text-sm sm:text-base text-slate-600 hover:text-[#1977cc] transition">Login</a>
-        <a href="signup.html" class="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#1977cc] text-white rounded-lg hover:opacity-90 transition text-sm font-medium">Sign Up</a>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+      <a href="index.html" class="text-xl font-bold text-[#1977cc]">MediBook</a>
+      <ul class="hidden md:flex items-center gap-6 text-slate-600">
+        <li><a href="index.html" class="hover:text-[#1977cc] font-medium">Home</a></li>
+        <li><a href="#about" class="hover:text-[#1977cc]">About</a></li>
+        <li><a href="#services" class="hover:text-[#1977cc]">Services</a></li>
+        <li><a href="#doctors" class="hover:text-[#1977cc]">Doctors</a></li>
+        <li><a href="#contact" class="hover:text-[#1977cc]">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-3">
+        <a href="signup.html" class="px-4 py-2 bg-[#1977cc] text-white rounded-lg font-medium hover:opacity-90 transition">Appointment</a>
+        <a href="login.html" class="text-slate-600 hover:text-[#1977cc] p-2" aria-label="Login"><i class="fas fa-user"></i></a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero: stacks on mobile -->
-  <section class="relative py-10 sm:py-16 md:py-24 overflow-hidden bg-slate-100">
-    <div class="absolute right-0 top-0 bottom-0 w-full max-w-2xl opacity-90 pointer-events-none hidden sm:block">
-      <svg class="absolute right-0 top-0 h-full w-full text-[#1977cc]" viewBox="0 0 400 600" preserveAspectRatio="xMaxYMid meet" aria-hidden="true">
-        <path fill="currentColor" d="M0 0v600h400V0c-80 80-160 120-240 120S80 80 0 0z" opacity="0.15"/>
-      </svg>
-    </div>
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative flex flex-col md:flex-row md:items-center gap-6 sm:gap-8">
-      <div class="max-w-xl w-full text-center md:text-left mx-auto md:mx-0">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-800 leading-tight">Get medical care early.</h1>
-        <p class="mt-3 sm:mt-4 text-base sm:text-lg text-slate-600">Book your doctor appointment easily. Choose from available doctors, pick a slot, and get your token. Simple and fast.</p>
-        <a href="signup.html" class="mt-6 sm:mt-8 inline-block px-5 py-2.5 sm:px-6 sm:py-3 bg-[#1977cc] text-white rounded-lg font-medium hover:opacity-90 transition shadow-lg text-sm sm:text-base">Find Out More</a>
-      </div>
-      <div class="flex-1 flex justify-center md:justify-end relative min-h-[200px] sm:min-h-0">
-        <div class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full bg-[#1977cc]/20 flex items-center justify-center overflow-hidden shrink-0">
-          <img src="images/hero.png" alt="Medical care" class="w-98 h-98 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="w-3/4 h-3/4 hidden items-center justify-center text-[#1977cc] text-4xl sm:text-6xl" aria-hidden="true">🏥</div>
+  <!-- Hero -->
+  <section class="relative py-12 md:py-20 overflow-hidden bg-white">
+    <div class="absolute right-0 top-0 w-1/2 h-full max-w-xl bg-[#e8f2fc] opacity-60 rounded-l-full -translate-y-1/2 translate-x-1/4 hidden lg:block" aria-hidden="true"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative flex flex-col lg:flex-row lg:items-center gap-10">
+      <div class="max-w-xl">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800 leading-tight">
+          Excellence in Healthcare With <span class="text-[#1977cc]">Compassionate Care</span>
+        </h1>
+        <p class="mt-4 text-slate-600">MediBook brings you easy doctor appointment booking. Choose your doctor, pick a date and slot, get your token, and track your queue in real time. Quality care, less wait.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="signup.html" class="px-6 py-3 bg-[#1977cc] text-white rounded-lg font-medium hover:opacity-90 transition">Book an Appointment</a>
+          <a href="#services" class="px-6 py-3 border-2 border-[#1977cc] text-[#1977cc] rounded-lg font-medium hover:bg-[#1977cc] hover:text-white transition">Our Services</a>
         </div>
+        <p class="mt-4 text-sm text-slate-500">Or Call us (Toll Free) +91 999 999 9999</p>
       </div>
-    </div>
-    <!-- <div class="flex justify-center gap-2 mt-4 sm:mt-6">
-      <span class="w-2 h-2 rounded-full bg-[#1977cc]"></span>
-      <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-    </div> -->
-  </section>
-
-  <!-- How it works: stacks on mobile -->
-  <section class="py-10 sm:py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 text-center mb-1 sm:mb-2">How to book with us</h2>
-      <p class="text-slate-500 text-center mb-8 sm:mb-12 text-sm sm:text-base">Simple steps to get your appointment</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-        <div class="space-y-4 sm:space-y-6 order-2 md:order-1">
-          <div class="flex items-start gap-3 sm:gap-4">
-            <span class="w-1 h-10 sm:h-12 bg-[#1977cc] rounded shrink-0 mt-0.5"></span>
-            <div class="min-w-0">
-              <h3 class="font-semibold text-slate-800 text-sm sm:text-base">Choose your doctor</h3>
-              <p class="text-slate-600 text-xs sm:text-sm mt-1">Browse by specialist and see available morning, afternoon, and evening slots.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3 sm:gap-4">
-            <span class="w-1 h-10 sm:h-12 bg-[#1977cc] rounded shrink-0 mt-0.5"></span>
-            <div class="min-w-0">
-              <h3 class="font-semibold text-slate-800 text-sm sm:text-base">Pick date & slot</h3>
-              <p class="text-slate-600 text-xs sm:text-sm mt-1">Select a date and time slot to get your token and estimated wait time.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3 sm:gap-4">
-            <span class="w-1 h-10 sm:h-12 bg-[#1977cc] rounded shrink-0 mt-0.5"></span>
-            <div class="min-w-0">
-              <h3 class="font-semibold text-slate-800 text-sm sm:text-base">Track your queue</h3>
-              <p class="text-slate-600 text-xs sm:text-sm mt-1">See your token and queue status so you know when it’s your turn.</p>
-            </div>
-          </div>
-        </div>
-        <div class="flex justify-center order-1 md:order-2">
-          <div class="w-40 h-40 sm:w-56 sm:h-56 rounded-full bg-[#e8f2fc] flex items-center justify-center overflow-hidden shrink-0">
-            <img src="images/how-it-works.png" alt="Booking steps" class="w-98 h-2/3 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="w-48 h-2/3 hidden items-center justify-center text-[#1977cc] text-4xl sm:text-5xl" aria-hidden="true">📅</div>
-          </div>
+      <div class="flex-1 flex justify-center lg:justify-end">
+        <div class="w-72 h-80 lg:w-96 lg:h-[28rem] rounded-2xl bg-[#e8f2fc] flex items-center justify-center overflow-hidden border border-slate-100 shrink-0">
+          <img src="images/hero.png" alt="Healthcare" class="w-full h-full object-cover object-center" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="hidden w-full h-full items-center justify-center text-[#1977cc] text-6xl" aria-hidden="true">🏥</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Feature: stacks on mobile -->
-  <section class="py-10 sm:py-16 bg-[#e8f2fc]">
+  <!-- About / Compassionate Care -->
+  <section id="about" class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center">
-        <div class="order-2 md:order-1 flex justify-center">
-          <div class="w-56 h-56 sm:w-72 sm:h-72 rounded-2xl bg-white shadow-lg flex items-center justify-center overflow-hidden border border-slate-100 shrink-0">
-            <img src="images/feature.png" alt="MediBook" class="w-98 h-98 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="w-4/5 h-4/5 hidden items-center justify-center text-[#1977cc] text-4xl sm:text-6xl" aria-hidden="true">👨‍⚕️</div>
-          </div>
-        </div>
-        <div class="order-1 md:order-2 min-w-0 text-center md:text-left mx-auto md:mx-0">
-          <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800">Why MediBook?</h2>
-          <p class="mt-3 sm:mt-4 text-slate-600 text-sm sm:text-base">MediBook helps you book appointments with doctors quickly. View available slots, get your token number, and track your queue in real time. No more long waits at the clinic.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Cards: 1 col mobile, 3 col desktop -->
-  <section class="py-10 sm:py-16 bg-[#e8f2fc]">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 text-center mb-1 sm:mb-2">Why choose us</h2>
-      <p class="text-slate-500 text-center mb-6 sm:mb-10 text-sm sm:text-base">Quick, simple, and reliable</p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-black-100 hover:shadow-lg transition">
-          <div class="h-32 sm:h-40 bg-[#1977cc]/10 flex items-center justify-center">
-            <span class="text-4xl sm:text-5xl" aria-hidden="true">🩺</span>
-          </div>
-          <div class="p-4 sm:p-5 text-center">
-            <h3 class="font-semibold text-slate-800 text-sm sm:text-base">Find Doctors</h3>
-            <p class="mt-2 text-xs sm:text-sm text-slate-600">Browse by specialist and see available slots for the day.</p>
-          </div>
-        </article>
-        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-black-100 hover:shadow-lg transition">
-          <div class="h-32 sm:h-40 bg-[#1977cc]/10 flex items-center justify-center">
-            <span class="text-4xl sm:text-5xl" aria-hidden="true">⏱️</span>
-          </div>
-          <div class="p-4 sm:p-5 text-center">
-            <h3 class="font-semibold text-slate-800 text-sm sm:text-base">Book in seconds</h3>
-            <p class="mt-2 text-xs sm:text-sm text-slate-600">Pick a date and slot and get your token instantly.</p>
-          </div>
-        </article>
-        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-black-100 hover:shadow-lg transition sm:col-span-2 lg:col-span-1">
-          <div class="h-32 sm:h-40 bg-[#1977cc]/10 flex items-center justify-center">
-            <span class="text-4xl sm:text-5xl" aria-hidden="true">📋</span>
-          </div>
-          <div class="p-4 sm:p-5 text-center">
-            <h3 class="font-semibold text-slate-800 text-sm sm:text-base">Track your turn</h3>
-            <p class="mt-2 text-xs sm:text-sm text-slate-600">See your token and estimated wait time in real time.</p>
-          </div>
-        </article>
-      </div>
-      <!-- <div class="flex justify-center gap-2 mt-6 sm:mt-8">
-        <span class="w-2 h-2 rounded-full bg-[#1977cc]"></span>
-        <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-      </div> -->
-    </div>
-  </section>
-
-  <!-- Footer: responsive columns -->
-  <footer class="bg-slate-800 text-slate-300 py-8 sm:py-12 mt-8 sm:mt-12">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-800 text-center mb-2">Compassionate Care. Advanced Medicine.</h2>
+      <p class="text-slate-500 text-center mb-12">Dedicated to your health</p>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h4 class="font-semibold text-white mb-3 sm:mb-4 text-sm sm:text-base">RESOURCES</h4>
-          <ul class="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-            <li><a href="login.html" class="hover:text-[#1977cc] transition">Login</a></li>
-            <li><a href="signup.html" class="hover:text-[#1977cc] transition">Sign Up</a></li>
+          <h3 class="text-xl font-bold text-slate-800">Compassionate Care. Advanced Medicine.</h3>
+          <p class="mt-4 text-slate-600">MediBook connects you with trusted doctors and simplifies booking. We believe everyone deserves easy access to quality healthcare.</p>
+          <p class="mt-3 text-slate-600">Book in seconds, get your token, and know your place in the queue. No more long waits or uncertainty at the clinic.</p>
+          <a href="signup.html" class="mt-8 inline-block px-6 py-3 bg-[#1977cc] text-white rounded-lg font-medium hover:opacity-90 transition">Get Started</a>
+        </div>
+        <div class="rounded-2xl overflow-hidden bg-slate-100 h-80 flex items-center justify-center">
+          <img src="images/feature.png" alt="Medical care" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="hidden w-full h-full items-center justify-center text-[#1977cc] text-5xl" aria-hidden="true">👨‍⚕️</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Departments -->
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-800 text-center">Most Visited Departments</h2>
+      <p class="text-slate-500 text-center mt-2 mb-10">Check our popular departments</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-100">
+          <div class="h-48 bg-[#1977cc]/10 flex items-center justify-center">
+            <span class="text-5xl" aria-hidden="true">🩺</span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-[#1977cc]">General Treatment</h3>
+            <p class="mt-2 text-slate-600 text-sm">Comprehensive check-ups and health counseling for you and your family.</p>
+            <ul class="mt-3 text-sm text-slate-500 space-y-1">• General check-up • Health counseling</ul>
+            <a href="login.html" class="mt-4 inline-block text-[#1977cc] font-medium hover:underline">View Details →</a>
+          </div>
+        </article>
+        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-100">
+          <div class="h-48 bg-[#1977cc]/10 flex items-center justify-center">
+            <span class="text-5xl" aria-hidden="true">🦷</span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-[#1977cc]">Dental Care</h3>
+            <p class="mt-2 text-slate-600 text-sm">Expert dental care including routine check-ups, oral surgery, and implants.</p>
+            <ul class="mt-3 text-sm text-slate-500 space-y-1">• Oral surgery • Dental implants</ul>
+            <a href="login.html" class="mt-4 inline-block text-[#1977cc] font-medium hover:underline">View Details →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 feature blocks -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex flex-col items-center text-center p-6 rounded-xl border border-slate-100 hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] text-2xl mb-4"><i class="fas fa-ambulance"></i></div>
+          <h3 class="font-bold text-slate-800">Ambulance</h3>
+          <p class="text-sm text-slate-500 mt-1">Ambulance support anytime</p>
+        </div>
+        <div class="flex flex-col items-center text-center p-6 rounded-xl border border-slate-100 hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] text-2xl mb-4"><i class="fas fa-clock"></i></div>
+          <h3 class="font-bold text-slate-800">Emergency</h3>
+          <p class="text-sm text-slate-500 mt-1">Emergency checkup & treatment</p>
+        </div>
+        <div class="flex flex-col items-center text-center p-6 rounded-xl border border-slate-100 hover:shadow-lg transition">
+          <div class="w-14 h-14 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] text-2xl mb-4"><i class="fas fa-syringe"></i></div>
+          <h3 class="font-bold text-slate-800">Vaccination</h3>
+          <p class="text-sm text-slate-500 mt-1">Vaccination & other services</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- First blue CTA -->
+  <section class="py-10 bg-[#1977cc]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <h2 class="text-xl md:text-2xl font-bold text-white text-center sm:text-left">Innovative Solution For Your Health!</h2>
+      <a href="signup.html" class="px-6 py-3 bg-white text-[#1977cc] rounded-lg font-medium hover:opacity-90 transition shrink-0">Book an Appointment</a>
+    </div>
+  </section>
+
+  <!-- Featured Services -->
+  <section id="services" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-800 text-center">Featured Services</h2>
+      <p class="text-slate-500 text-center mt-2 mb-12">We offer the best in healthcare services</p>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="rounded-2xl overflow-hidden bg-slate-100 h-80 flex items-center justify-center">
+          <img src="images/how-it-works.png" alt="Services" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="hidden w-full h-full items-center justify-center text-[#1977cc] text-5xl" aria-hidden="true">📅</div>
+        </div>
+        <div class="space-y-4">
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] shrink-0"><i class="fas fa-heart"></i></div>
+            <div>
+              <h3 class="font-bold text-slate-800">Cardiology</h3>
+              <p class="text-sm text-slate-600">Heart care and cardiovascular check-ups.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] shrink-0"><i class="fas fa-brain"></i></div>
+            <div>
+              <h3 class="font-bold text-slate-800">Neurology</h3>
+              <p class="text-sm text-slate-600">Expert neurological consultation and care.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] shrink-0"><i class="fas fa-tooth"></i></div>
+            <div>
+              <h3 class="font-bold text-slate-800">Dental</h3>
+              <p class="text-sm text-slate-600">Complete dental care and oral health.</p>
+            </div>
+          </div>
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] shrink-0"><i class="fas fa-user-md"></i></div>
+            <div>
+              <h3 class="font-bold text-slate-800">General Check-up</h3>
+              <p class="text-sm text-slate-600">Routine health checks and preventive care.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-wrap justify-center gap-6 mt-10">
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-[#e8f2fc] flex items-center justify-center text-[#1977cc] text-xl font-bold">Dr</div>
+          <span class="text-xs text-slate-500 mt-2">Cardiology Specialist</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-[#e8f2fc] flex items-center justify-center text-[#1977cc] text-xl font-bold">Dr</div>
+          <span class="text-xs text-slate-500 mt-2">Neurology Specialist</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-[#e8f2fc] flex items-center justify-center text-[#1977cc] text-xl font-bold">Dr</div>
+          <span class="text-xs text-slate-500 mt-2">Dental Specialist</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 rounded-full bg-[#e8f2fc] flex items-center justify-center text-[#1977cc] text-xl font-bold">Dr</div>
+          <span class="text-xs text-slate-500 mt-2">General Physician</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find a Doctor -->
+  <section id="doctors" class="py-16 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-800 text-center">Find a Doctor</h2>
+      <p class="text-slate-500 text-center mt-2 mb-8">Find your perfect healthcare provider</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-100 text-center">
+          <div class="h-48 bg-[#1977cc]/10 flex items-center justify-center">
+            <div class="w-24 h-24 rounded-full bg-[#1977cc]/20 flex items-center justify-center text-[#1977cc] text-3xl font-bold">DR</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-slate-800">Dr. Amit Sharma</h3>
+            <p class="text-sm text-[#1977cc]">Cardiologist</p>
+            <p class="text-xs text-amber-600 mt-1">★ 4.5 (100+ Reviews)</p>
+            <p class="text-xs text-slate-500 mt-1">Available: Mon–Sat · 10+ Years</p>
+            <a href="login.html" class="mt-3 inline-block px-4 py-2 bg-[#1977cc] text-white text-sm rounded-lg hover:opacity-90">View Profile</a>
+          </div>
+        </article>
+        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-100 text-center">
+          <div class="h-48 bg-[#1977cc]/10 flex items-center justify-center">
+            <div class="w-24 h-24 rounded-full bg-[#1977cc]/20 flex items-center justify-center text-[#1977cc] text-3xl font-bold">DR</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-slate-800">Dr. Raam</h3>
+            <p class="text-sm text-[#1977cc]">Dentist</p>
+            <p class="text-xs text-amber-600 mt-1">★ 4.5 (80+ Reviews)</p>
+            <p class="text-xs text-slate-500 mt-1">Available: Mon–Sat · 8+ Years</p>
+            <a href="login.html" class="mt-3 inline-block px-4 py-2 bg-[#1977cc] text-white text-sm rounded-lg hover:opacity-90">View Profile</a>
+          </div>
+        </article>
+        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-100 text-center">
+          <div class="h-48 bg-[#1977cc]/10 flex items-center justify-center">
+            <div class="w-24 h-24 rounded-full bg-[#1977cc]/20 flex items-center justify-center text-[#1977cc] text-3xl font-bold">DR</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-slate-800">Dr. Priya Nair</h3>
+            <p class="text-sm text-[#1977cc]">Pediatrician</p>
+            <p class="text-xs text-amber-600 mt-1">★ 4.8 (120+ Reviews)</p>
+            <p class="text-xs text-slate-500 mt-1">Available: Mon–Sat · 12+ Years</p>
+            <a href="login.html" class="mt-3 inline-block px-4 py-2 bg-[#1977cc] text-white text-sm rounded-lg hover:opacity-90">View Profile</a>
+          </div>
+        </article>
+        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-100 text-center">
+          <div class="h-48 bg-[#1977cc]/10 flex items-center justify-center">
+            <div class="w-24 h-24 rounded-full bg-[#1977cc]/20 flex items-center justify-center text-[#1977cc] text-3xl font-bold">DR</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-slate-800">Dr. Suresh Reddy</h3>
+            <p class="text-sm text-[#1977cc]">General Physician</p>
+            <p class="text-xs text-amber-600 mt-1">★ 4.6 (90+ Reviews)</p>
+            <p class="text-xs text-slate-500 mt-1">Available: Mon–Sat · 9+ Years</p>
+            <a href="login.html" class="mt-3 inline-block px-4 py-2 bg-[#1977cc] text-white text-sm rounded-lg hover:opacity-90">View Profile</a>
+          </div>
+        </article>
+        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-100 text-center">
+          <div class="h-48 bg-[#1977cc]/10 flex items-center justify-center">
+            <div class="w-24 h-24 rounded-full bg-[#1977cc]/20 flex items-center justify-center text-[#1977cc] text-3xl font-bold">DR</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-slate-800">Dr. Meera Iyer</h3>
+            <p class="text-sm text-[#1977cc]">Dermatologist</p>
+            <p class="text-xs text-amber-600 mt-1">★ 4.7 (70+ Reviews)</p>
+            <p class="text-xs text-slate-500 mt-1">Available: Mon–Sat · 7+ Years</p>
+            <a href="login.html" class="mt-3 inline-block px-4 py-2 bg-[#1977cc] text-white text-sm rounded-lg hover:opacity-90">View Profile</a>
+          </div>
+        </article>
+        <article class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-100 text-center">
+          <div class="h-48 bg-[#1977cc]/10 flex items-center justify-center">
+            <div class="w-24 h-24 rounded-full bg-[#1977cc]/20 flex items-center justify-center text-[#1977cc] text-3xl font-bold">DR</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-slate-800">Dr. John Doe</h3>
+            <p class="text-sm text-[#1977cc]">Cardiologist</p>
+            <p class="text-xs text-amber-600 mt-1">★ 4.5 (85+ Reviews)</p>
+            <p class="text-xs text-slate-500 mt-1">Available: Mon–Fri · 11+ Years</p>
+            <a href="login.html" class="mt-3 inline-block px-4 py-2 bg-[#1977cc] text-white text-sm rounded-lg hover:opacity-90">View Profile</a>
+          </div>
+        </article>
+      </div>
+      <div class="text-center mt-8">
+        <button type="button" class="px-6 py-2 border-2 border-[#1977cc] text-[#1977cc] rounded-lg font-medium hover:bg-[#1977cc] hover:text-white transition">Load More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Excellence in Medical Cure (light blue) -->
+  <section class="py-16 bg-[#e8f2fc]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-800">Excellence in Medical Cure, Every Day</h2>
+          <p class="mt-4 text-slate-600">We combine technology with compassion. Book online, get your token, and track your queue so you spend less time waiting and more time getting better.</p>
+          <a href="signup.html" class="mt-6 inline-block px-6 py-3 bg-[#1977cc] text-white rounded-lg font-medium hover:opacity-90 transition">Get Started</a>
+        </div>
+        <div class="rounded-2xl overflow-hidden bg-white h-72 flex items-center justify-center border border-slate-100">
+          <div class="text-[#1977cc] text-6xl" aria-hidden="true">🏥</div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        <div class="flex gap-4 p-6 bg-white rounded-xl border border-slate-100">
+          <div class="w-12 h-12 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] shrink-0"><i class="fas fa-microscope"></i></div>
+          <div>
+            <h3 class="font-bold text-slate-800">Advanced Technology</h3>
+            <p class="text-sm text-slate-500 mt-1">Modern systems for faster, safer care.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 bg-white rounded-xl border border-slate-100">
+          <div class="w-12 h-12 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] shrink-0"><i class="fas fa-headset"></i></div>
+          <div>
+            <h3 class="font-bold text-slate-800">Quality Support</h3>
+            <p class="text-sm text-slate-500 mt-1">We're here to help you every step of the way.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 bg-white rounded-xl border border-slate-100">
+          <div class="w-12 h-12 rounded-full bg-[#1977cc]/10 flex items-center justify-center text-[#1977cc] shrink-0"><i class="fas fa-globe"></i></div>
+          <div>
+            <h3 class="font-bold text-slate-800">Online Help</h3>
+            <p class="text-sm text-slate-500 mt-1">Book and manage appointments from anywhere.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Second blue CTA -->
+  <section class="py-10 bg-[#1977cc]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <h2 class="text-xl md:text-2xl font-bold text-white text-center sm:text-left">Would You Like To View Our Services?</h2>
+      <a href="#services" class="px-6 py-3 bg-white text-[#1977cc] rounded-lg font-medium hover:opacity-90 transition shrink-0">View Our Services</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-slate-800 text-slate-300 py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-10">
+        <div>
+          <h4 class="font-bold text-white mb-4">MediBook</h4>
+          <p class="text-sm">Doctor appointment booking made simple. Book, get your token, and track your queue in real time.</p>
+          <p class="mt-3 text-sm">Address: 123 Health Street, City</p>
+          <p class="text-sm">Phone: +91 999 999 9999</p>
+          <p class="text-sm">Email: info@medibook.com</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="hover:text-[#1977cc] transition">Home</a></li>
+            <li><a href="#about" class="hover:text-[#1977cc] transition">About Us</a></li>
+            <li><a href="#services" class="hover:text-[#1977cc] transition">Services</a></li>
+            <li><a href="signup.html" class="hover:text-[#1977cc] transition">Appointment</a></li>
+            <li><a href="#contact" class="hover:text-[#1977cc] transition">Contact Us</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="font-semibold text-white mb-3 sm:mb-4 text-sm sm:text-base">ABOUT</h4>
-          <p class="text-xs sm:text-sm">MediBook helps you book doctor appointments quickly. View slots, get your token, and track your queue.</p>
-        </div>
-        <div>
-          <h4 class="font-semibold text-white mb-3 sm:mb-4 text-sm sm:text-base">CONTACT</h4>
-          <p class="text-xs sm:text-sm">Use Login or Sign Up to get started.</p>
-        </div>
-        <div>
-          <h4 class="font-semibold text-white mb-3 sm:mb-4 text-sm sm:text-base">MediBook</h4>
-          <p class="text-xs sm:text-sm text-[#1977cc] font-medium">Doctor Appointment Booking</p>
+          <h4 class="font-bold text-white mb-4">Our Services</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="login.html" class="hover:text-[#1977cc] transition">General Treatment</a></li>
+            <li><a href="login.html" class="hover:text-[#1977cc] transition">Dental Care</a></li>
+            <li><a href="login.html" class="hover:text-[#1977cc] transition">Cardiology</a></li>
+            <li><a href="login.html" class="hover:text-[#1977cc] transition">Book Appointment</a></li>
+          </ul>
         </div>
       </div>
-      <div class="border-t border-slate-600 pt-4 sm:pt-6 text-center text-xs sm:text-sm">
+      <div class="border-t border-slate-600 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-sm">
         <p>© MediBook. All rights reserved.</p>
       </div>
     </div>
