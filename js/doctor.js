@@ -49,7 +49,11 @@ function loadDoctorDashboard(doctorId, date) {
     console.log('Doctor ID:', doctorId, 'Date:', d);
   }
   Promise.all([
-    api.getAppointments({ doctorId: doctorId, date: d }),
+    api.getAppointments({}).then(function (allList) {
+      return (allList || []).filter(function (a) {
+        return String(a.doctorId) === String(doctorId) && a.date === d;
+      });
+    }),
     api.getDoctor(doctorId),
   ]).then(function (res) {
     var appointments = res[0] || [];

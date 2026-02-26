@@ -142,7 +142,7 @@
           "start": "13:00",
           "end": "16:00",
           "limit": 10,
-          "enabled": false
+          "enabled": true
         },
         "evening": {
           "start": "17:00",
@@ -560,7 +560,7 @@
       "date": "2026-02-26",
       "slot": "evening",
       "tokenNumber": 1,
-      "status": "waiting"
+      "status": "completed"
     }
   ]
 }
