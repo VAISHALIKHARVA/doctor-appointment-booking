@@ -76,3 +76,8 @@ Filter: `?doctorId=1&date=2026-02-24&patientId=2`
 
 5. **Console debug**  
    Open DevTools (F12) → Console. On load you should see `GET http://localhost:3000/appointments?doctorId=...&date=...` and `Doctor Appointments: n [...]`. If the GET URL is wrong or you see a network error, fix the server or port.
+
+
+
+json-server --watch db.json --port 3000 --host 0.0.0.0
+npx serve . -l tcp://0.0.0.0:8080
