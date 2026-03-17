@@ -2,6 +2,14 @@
  * Patient dashboard & booking – doctors list, my appointments, book (string IDs)
  */
 var MINUTES_PER_PATIENT = 10;
+/** Serializes book requests so double-clicks cannot create duplicate A01 rows */
+var patientBookChain = Promise.resolve();
+
+function activePatientAppointments(appointments, patientIdStr) {
+  return (appointments || []).filter(function (a) {
+    return String(a.patientId) === patientIdStr && a.status !== 'cancelled';
+  });
+}
 
 function getDoctorsWithSlots(doctorsWithUser, appointments, date) {
   var dayAppointments = (appointments || []).filter(function (a) { return a.date === date; });
@@ -219,7 +227,8 @@ function initBookingPage() {
       var doctorsWithSlots = getDoctorsWithSlots([Object.assign({}, doctor, { name: doctor.name })], appointments, dateParam);
       var doc = doctorsWithSlots[0];
       if (!doc) return;
-      var existing = (appointments || []).find(function (a) { return String(a.patientId) === String(user.id); });
+      var actives = activePatientAppointments(appointments, String(user.id));
+      var existing = actives.length ? actives.sort(function (a, b) { return Number(a.tokenNumber) - Number(b.tokenNumber); })[0] : null;
       if (existing) {
         function renderExisting(currentToken) {
           var waitMin = estimatedWaitMinutes(existing.tokenNumber, currentToken, MINUTES_PER_PATIENT);
@@ -286,54 +295,99 @@ function getCurrentTokenForDoctorDate(doctorId, date) {
 
 function doBook(doctorId, slot, date, user, showResult, showSlots) {
   var btn = document.getElementById('bookBtn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Booking...'; }
+  if (btn && btn.getAttribute('data-booking') === '1') return;
+  if (btn) {
+    btn.setAttribute('data-booking', '1');
+    btn.disabled = true;
+    btn.textContent = 'Booking...';
+  }
   doctorId = String(doctorId);
   var patientIdStr = String(user.id);
 
-  api.getAppointments({ doctorId: doctorId, date: date }).then(function (appointments) {
-    var existing = (appointments || []).find(function (a) { return String(a.patientId) === patientIdStr; });
-    if (existing) {
-      showResult('<p class="text-amber-600">You already have an appointment for this date.</p>');
-      if (btn) { btn.disabled = false; btn.textContent = 'Book'; }
-      return;
+  function resetBookBtn() {
+    var b = document.getElementById('bookBtn');
+    if (b) {
+      b.removeAttribute('data-booking');
+      b.disabled = false;
+      b.textContent = 'Book';
     }
-    var slotAppointments = (appointments || []).filter(function (a) { return a.slot === slot; });
-    var nextToken = slotAppointments.length === 0 ? 1 : Math.max.apply(null, slotAppointments.map(function (a) { return a.tokenNumber; })) + 1;
-    return api.createAppointment({
-      doctorId: doctorId,
-      patientId: patientIdStr,
-      patientName: user.name || '',
-      patientPhone: user.phone || '',
-      date: date,
-      slot: slot,
-      tokenNumber: nextToken,
-      status: 'waiting',
-    }).then(function (app) {
-        return api.getAppointments({ doctorId: doctorId, date: date, status: 'waiting' }).then(function (waitingList) {
-          var currentToken = (waitingList && waitingList.length) ? Math.min.apply(null, waitingList.map(function (a) { return a.tokenNumber; })) : nextToken;
-          var waitMin = estimatedWaitMinutes(nextToken, currentToken, MINUTES_PER_PATIENT);
-          function renderBooked(cur) {
-            var w = estimatedWaitMinutes(app.tokenNumber, cur, MINUTES_PER_PATIENT);
-            return (
-              '<div class="rounded-lg border border-green-200 bg-green-50 p-4" data-queue-refresh="1">' +
-              '<p class="font-medium text-green-800">Appointment booked</p>' +
-              '<p class="mt-2 text-slate-600">Your Token: <strong>' + formatToken(app.tokenNumber) + '</strong></p>' +
-              '<p class="mt-1">Current Token: ' + formatToken(cur) + '</p>' +
-              '<p class="mt-1">Estimated Wait Time: ' + w + ' min</p></div>'
-            );
-          }
-          showResult(renderBooked(currentToken));
-          window._queueRefresh = setInterval(function () {
-            getCurrentTokenForDoctorDate(doctorId, date).then(function (cur) {
-              var r = document.getElementById('bookingResult');
-              if (r && r.querySelector('[data-queue-refresh]')) r.innerHTML = renderBooked(cur);
+  }
+
+  patientBookChain = patientBookChain
+    .then(function () {
+      return api.getAppointments({ doctorId: doctorId, date: date }).then(function (appointments) {
+        var active = activePatientAppointments(appointments, patientIdStr);
+        var sameSlot = active.filter(function (a) { return a.slot === slot; });
+        if (sameSlot.length > 0) {
+          var t = sameSlot[0].tokenNumber;
+          showResult(
+            '<p class="text-amber-600">You already have a <strong>' +
+              escapeHtml(slot) +
+              '</strong> appointment with this doctor on this date. Your token: <strong>' +
+              formatToken(t) +
+              '</strong>. Cancel it in My Appointments if you need to rebook.</p>'
+          );
+          return;
+        }
+        if (active.length > 0) {
+          showResult(
+            '<p class="text-amber-600">You already have a <strong>' +
+              escapeHtml(active[0].slot) +
+              '</strong> slot on this date with this doctor. Only one appointment per doctor per day. Cancel it first to choose a different slot.</p>'
+          );
+          return;
+        }
+        // One queue per doctor per day; include cancelled so token numbers are never reused
+        var allForDay = appointments || [];
+        var nextToken =
+          allForDay.length === 0
+            ? 1
+            : Math.max.apply(
+                null,
+                allForDay.map(function (a) {
+                  var n = Number(a.tokenNumber);
+                  return isNaN(n) ? 0 : n;
+                })
+              ) + 1;
+        return api
+          .createAppointment({
+            doctorId: doctorId,
+            patientId: patientIdStr,
+            patientName: user.name || '',
+            patientPhone: user.phone || '',
+            date: date,
+            slot: slot,
+            tokenNumber: nextToken,
+            status: 'waiting',
+          })
+          .then(function (app) {
+            return api.getAppointments({ doctorId: doctorId, date: date, status: 'waiting' }).then(function (waitingList) {
+              var currentToken = (waitingList && waitingList.length) ? Math.min.apply(null, waitingList.map(function (a) { return a.tokenNumber; })) : nextToken;
+              function renderBooked(cur) {
+                var w = estimatedWaitMinutes(app.tokenNumber, cur, MINUTES_PER_PATIENT);
+                return (
+                  '<div class="rounded-lg border border-green-200 bg-green-50 p-4" data-queue-refresh="1">' +
+                  '<p class="font-medium text-green-800">Appointment booked</p>' +
+                  '<p class="mt-2 text-slate-600">Your Token: <strong>' + formatToken(app.tokenNumber) + '</strong></p>' +
+                  '<p class="mt-1">Current Token: ' + formatToken(cur) + '</p>' +
+                  '<p class="mt-1">Estimated Wait Time: ' + w + ' min</p></div>'
+                );
+              }
+              showResult(renderBooked(currentToken));
+              window._queueRefresh = setInterval(function () {
+                getCurrentTokenForDoctorDate(doctorId, date).then(function (cur) {
+                  var r = document.getElementById('bookingResult');
+                  if (r && r.querySelector('[data-queue-refresh]')) r.innerHTML = renderBooked(cur);
+                });
+              }, 10000);
             });
-          }, 10000);
-          if (btn) { btn.disabled = false; btn.textContent = 'Book'; }
-        });
+          });
+      });
+    })
+    .catch(function () {
+      showToast('Booking failed.', 'error');
+    })
+    .then(function () {
+      resetBookBtn();
     });
-  }).catch(function () {
-    showToast('Booking failed.', 'error');
-    if (btn) { btn.disabled = false; btn.textContent = 'Book'; }
-  });
 }
