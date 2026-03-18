@@ -1,9 +1,17 @@
 /**
  * API module - fetch wrappers for JSON Server
- * MUST use full URL so fetch hits localhost:3000, not the page origin (e.g. 5500).
+ * Load js/api-config.js before this file to set window.API_BASE, or it auto-detects.
  */
-var API_BASE = 'http://localhost:3000';
-window.API_BASE = API_BASE;
+(function resolveApiBase() {
+  if (typeof window.API_BASE === 'string' && window.API_BASE.length > 0) return;
+  var h = window.location.hostname;
+  if (h === 'localhost' || h === '127.0.0.1' || h === '' || h === '[::1]') {
+    window.API_BASE = 'http://localhost:3000';
+  } else {
+    window.API_BASE = 'http://' + h + ':3000';
+  }
+})();
+var API_BASE = window.API_BASE;
 
 async function request(path, options) {
   options = options || {};
