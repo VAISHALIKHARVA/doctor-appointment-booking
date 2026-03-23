@@ -55,11 +55,21 @@ function handleLogin(e) {
   var form = e && e.target && e.target.tagName === 'FORM' ? e.target : document.getElementById('loginForm');
   if (!form) return false;
   const email = (form.querySelector('[name="email"]') || {}).value?.trim();
-  const password = (form.querySelector('[name="password"]') || {}).value?.trim();
+  const password = (form.querySelector('[name="password"]') || {}).value;
   const role = (form.querySelector('[name="role"]:checked') || {}).value;
 
-  if (!email || !password || !role) {
-    showToast('Please fill email, password and select role.', 'error');
+  var emailErr = getEmailValidationError(email);
+  if (emailErr) {
+    showToast(emailErr, 'error');
+    return false;
+  }
+  var pwErr = getPasswordValidationError(password);
+  if (pwErr) {
+    showToast(pwErr, 'error');
+    return false;
+  }
+  if (!role) {
+    showToast('Please select Doctor or Patient.', 'error');
     return false;
   }
 
@@ -105,8 +115,8 @@ function handleLogin(e) {
 }
 
 function handleSignup(e) {
-  e.preventDefault();
-  const form = e.target;
+  const form = e && e.target ? e.target : document.getElementById('signupForm');
+  if (!form) return;
   const role = (form.querySelector('[name="role"]:checked') || {}).value;
   const name = (form.querySelector('[name="name"]') || {}).value?.trim();
   const email = (form.querySelector('[name="email"]') || {}).value?.trim();
@@ -116,16 +126,47 @@ function handleSignup(e) {
   const specialist = form.querySelector('[name="specialist"]');
   const specialistVal = specialist ? specialist.value?.trim() : '';
 
-  if (!name || !email || !phone || !password) {
-    showToast('Please fill all required fields.', 'error');
+  var nameErr = getNameValidationError(name);
+  if (nameErr) {
+    showToast(nameErr, 'error');
+    return;
+  }
+  var emailErr = getEmailValidationError(email);
+  if (emailErr) {
+    showToast(emailErr, 'error');
+    return;
+  }
+  if (!phone) {
+    showToast('Phone is required.', 'error');
+    return;
+  }
+  if (!/^\d{10}$/.test(phone)) {
+    showToast('Phone must be exactly 10 digits.', 'error');
+    return;
+  }
+  var pwErr = getPasswordValidationError(password);
+  if (pwErr) {
+    showToast(pwErr, 'error');
+    return;
+  }
+  var confirmErr = getPasswordValidationError(confirm, 'Confirm password');
+  if (confirmErr) {
+    showToast(confirmErr, 'error');
     return;
   }
   if (password !== confirm) {
     showToast('Passwords do not match.', 'error');
     return;
   }
-  if (role === 'doctor' && !specialistVal) {
-    showToast('Please enter specialist.', 'error');
+  if (role === 'doctor') {
+    var specErr = getSpecialistValidationError(specialistVal);
+    if (specErr) {
+      showToast(specErr, 'error');
+      return;
+    }
+  }
+  if (!role) {
+    showToast('Please select Doctor or Patient.', 'error');
     return;
   }
 

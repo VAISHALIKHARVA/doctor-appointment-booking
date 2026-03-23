@@ -1,6 +1,53 @@
 /**
  * Shared utilities
  */
+
+/** Auth form validation (login & signup) */
+var VALIDATION_LIMITS = {
+  nameMin: 2,
+  nameMax: 80,
+  specialistMin: 2,
+  specialistMax: 80,
+  passwordMin: 6,
+  passwordMax: 128,
+};
+
+function getEmailValidationError(email) {
+  var s = String(email || '').trim();
+  if (!s) return 'Email is required.';
+  if (s.length > 254) return 'Email is too long.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s)) return 'Enter a valid email address.';
+  return '';
+}
+
+function getNameValidationError(name) {
+  var s = String(name || '').trim();
+  if (!s) return 'Name is required.';
+  if (s.length < VALIDATION_LIMITS.nameMin) return 'Name must be at least ' + VALIDATION_LIMITS.nameMin + ' characters.';
+  if (s.length > VALIDATION_LIMITS.nameMax) return 'Name must be at most ' + VALIDATION_LIMITS.nameMax + ' characters.';
+  return '';
+}
+
+function getSpecialistValidationError(value) {
+  var s = String(value || '').trim();
+  if (!s) return 'Specialist is required for doctors.';
+  if (s.length < VALIDATION_LIMITS.specialistMin) return 'Specialist must be at least ' + VALIDATION_LIMITS.specialistMin + ' characters.';
+  if (s.length > VALIDATION_LIMITS.specialistMax) return 'Specialist must be at most ' + VALIDATION_LIMITS.specialistMax + ' characters.';
+  return '';
+}
+
+function getPasswordValidationError(password, label) {
+  label = label || 'Password';
+  if (password == null || password === '') return label + ' is required.';
+  if (password.length < VALIDATION_LIMITS.passwordMin) {
+    return label + ' must be at least ' + VALIDATION_LIMITS.passwordMin + ' characters.';
+  }
+  if (password.length > VALIDATION_LIMITS.passwordMax) {
+    return label + ' must be at most ' + VALIDATION_LIMITS.passwordMax + ' characters.';
+  }
+  return '';
+}
+
 function getToday() {
   var d = new Date();
   return d.toISOString().slice(0, 10);

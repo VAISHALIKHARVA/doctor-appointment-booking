@@ -16,6 +16,30 @@
       "email": "patient1@gmail.com",
       "phone": "9999999999",
       "password": "123456"
+    },
+    {
+      "id": "062b",
+      "role": "patient",
+      "name": "Vaishali Kharva",
+      "email": "vaishali@abc.com",
+      "phone": "2536521212",
+      "password": "Abc123"
+    },
+    {
+      "id": "4a63",
+      "role": "patient",
+      "name": "Abc",
+      "email": "abc@gmail.com",
+      "phone": "1234567891",
+      "password": "123456"
+    },
+    {
+      "id": "ef12",
+      "role": "patient",
+      "name": "ABC",
+      "email": "abcd@gmail.com",
+      "phone": "1234567891",
+      "password": "123412"
     }
   ],
   "doctors": [
